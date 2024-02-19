@@ -1,14 +1,33 @@
-# Usar a imagem node:16.14-alpine como base
+# syntax=docker/dockerfile:1
 
-# Mudar para o diretório de trabalho /app-frontend
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Dockerfile reference guide at
+# https://docs.docker.com/engine/reference/builder/
 
-# Copiar os package.json e package-lock.json para o container
+ARG NODE_VERSION=16.14
 
-# Instalar as dependências Node
+FROM node:${NODE_VERSION}-alpine
 
-# Copiar o restante dos arquivos da aplicação para o container
+# Use production node environment by default.
+ENV NODE_ENV production
 
-# Sinalize que aplicação expõe a porta 3000
 
-# Configurar os comandos para iniciar a aplicação de acordo com as boas práticas
-# Dica: Leia a seção Docker e Docker-compose no README para mais informações
+WORKDIR /app-frontend
+
+# Download dependencies as a separate step to take advantage of Docker's caching.
+# Leverage a cache mount to /root/.npm to speed up subsequent builds.
+# Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
+# into this layer.
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
+
+# Copy the rest of the source files into the image.
+COPY . .
+
+# Expose the port that the application listens on.
+EXPOSE 3000
+
+# Run the application.
+CMD npm start
