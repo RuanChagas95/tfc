@@ -13,7 +13,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "noImplicitAny": false,
     "paths": {
       "*": ["node_modules/*"]
     }
