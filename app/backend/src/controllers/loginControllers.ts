@@ -6,7 +6,7 @@ export const loginController = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await login(email, password);
   if ('error' in user) {
-    return res.status(401).json(user);
+    return res.status(401).json(user.error);
   }
   const { id, role } = user;
   const token = jwt.sign({ id, email, role }, process.env.JWT_SECRET as string);

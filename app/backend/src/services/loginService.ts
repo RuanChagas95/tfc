@@ -3,7 +3,7 @@ import UserModel from '../database/models/UserModel';
 
 export const login = async (email : string, password : string) => {
   const user = await UserModel.findOne({ where: { email } });
-  const error = 'invalid email or password';
+  const error = { message: 'Invalid email or password' };
   if (!user) {
     return { error };
   }
