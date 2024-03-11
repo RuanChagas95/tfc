@@ -5,12 +5,13 @@ import {
   InferCreationAttributes,
   CreationOptional,
 } from 'sequelize';
+import Team from '../../Interfaces/Teams';
 import db from '.';
 
 class TeamModel extends Model<InferAttributes<TeamModel>,
-InferCreationAttributes<TeamModel>> {
+InferCreationAttributes<TeamModel>> implements Team {
   declare id: CreationOptional<number>;
-  declare teamName: string;
+  public teamName!: string;
 }
 
 TeamModel.init({
