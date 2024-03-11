@@ -7,7 +7,8 @@ import {
 } from 'sequelize';
 import db from '.';
 import Users from '../../Interfaces/Users';
-// import OtherModel from './OtherModel';
+import Match from './MatchModel';
+import TeamModel from './TeamModel';
 
 class UserModel extends Model<InferAttributes<UserModel>,
 InferCreationAttributes<UserModel>> implements Users {
@@ -50,15 +51,9 @@ UserModel.init({
   timestamps: false,
 });
 
-/**
-    * `Workaround` para aplicar as associations em TS:
-    * Associations 1:N devem ficar em uma das instâncias de modelo
-    * */
-
-// OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
-// OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
-
-// Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
-// Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
+Match.belongsTo(TeamModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+Match.belongsTo(TeamModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
+TeamModel.hasMany(Match, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+TeamModel.hasMany(Match, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
 export default UserModel;
