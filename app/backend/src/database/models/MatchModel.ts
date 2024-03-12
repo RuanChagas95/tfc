@@ -29,11 +29,19 @@ MatcheModel.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'home_team_id',
+    references: {
+      model: 'teams',
+      key: 'id',
+    },
   },
   awayTeamId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'away_team_id',
+    references: {
+      model: 'teams',
+      key: 'id',
+    },
   },
   homeTeamGoals: {
     type: DataTypes.INTEGER,
