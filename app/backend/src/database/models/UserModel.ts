@@ -7,8 +7,6 @@ import {
 } from 'sequelize';
 import db from '.';
 import Users from '../../Interfaces/Users';
-import Match from './MatchModel';
-import TeamModel from './TeamModel';
 
 class UserModel extends Model<InferAttributes<UserModel>,
 InferCreationAttributes<UserModel>> implements Users {
@@ -50,10 +48,5 @@ UserModel.init({
   modelName: 'users',
   timestamps: false,
 });
-
-Match.belongsTo(TeamModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
-Match.belongsTo(TeamModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
-TeamModel.hasMany(Match, { foreignKey: 'homeTeamId', as: 'homeTeam' });
-TeamModel.hasMany(Match, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
 export default UserModel;
