@@ -1,4 +1,4 @@
-import MatcheModel from '../database/models/MatchModel';
+import MatchModel from '../database/models/MatchModel';
 
 const createOptions = (association: string) => ({
   association,
@@ -6,25 +6,33 @@ const createOptions = (association: string) => ({
 });
 
 export const getAllMatches = (inProgress: boolean | null) =>
-  MatcheModel.findAll(
+  MatchModel.findAll(
     {
       include: [createOptions('homeTeam'), createOptions('awayTeam')],
       where: inProgress !== null ? { inProgress } : undefined,
     },
   );
 
-export const getMatch = (id: number) => MatcheModel.findByPk(id);
+export const getMatch = (id: number) => MatchModel.findByPk(id);
 
 export const finishMatch = (id: number) =>
-  MatcheModel.update(
+  MatchModel.update(
     { inProgress: false },
     { where: { id } },
   );
-export const createMatch = (homeTeamId: number, awayTeamId: number) => {
-  const match = MatcheModel.create({ homeTeamId, awayTeamId });
-  return match;
-};
+export const createMatch = (
+  homeTeamId: number,
+  awayTeamId: number,
+  homeTeamGoals = 0,
+  awayTeamGoals = 0,
+) => MatchModel.create(
+  { homeTeamId,
+    awayTeamId,
+    homeTeamGoals,
+    awayTeamGoals,
+  },
+);
 
 export const updateMatch = (id: number, homeTeamGoals: number, awayTeamGoals: number) =>
-  MatcheModel.update({
+  MatchModel.update({
     homeTeamGoals, awayTeamGoals }, { where: { id } });

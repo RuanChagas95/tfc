@@ -7,7 +7,7 @@ import {
 } from 'sequelize';
 import Team from '../../Interfaces/Teams';
 import db from '.';
-import MatcheModel from './MatchModel';
+import MatchModel from './MatchModel';
 
 class TeamModel extends Model<InferAttributes<TeamModel>,
 InferCreationAttributes<TeamModel>> implements Team {
@@ -33,9 +33,9 @@ TeamModel.init({
   timestamps: false,
 });
 
-MatcheModel.belongsTo(TeamModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
-MatcheModel.belongsTo(TeamModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
-TeamModel.hasMany(MatcheModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
-TeamModel.hasMany(MatcheModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
+MatchModel.belongsTo(TeamModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+MatchModel.belongsTo(TeamModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
+TeamModel.hasMany(MatchModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+TeamModel.hasMany(MatchModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
 export default TeamModel;

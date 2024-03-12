@@ -8,8 +8,8 @@ import {
 import db from '.';
 import Matches from '../../Interfaces/Matches';
 
-class MatcheModel extends Model<InferAttributes<MatcheModel>,
-InferCreationAttributes<MatcheModel>> implements Matches {
+class MatchModel extends Model<InferAttributes<MatchModel>,
+InferCreationAttributes<MatchModel>> implements Matches {
   declare id: CreationOptional<number>;
   declare homeTeamGoals: CreationOptional<number>;
   declare awayTeamGoals: CreationOptional<number>;
@@ -18,7 +18,7 @@ InferCreationAttributes<MatcheModel>> implements Matches {
   public awayTeamId!: number;
 }
 
-MatcheModel.init({
+MatchModel.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -67,4 +67,4 @@ MatcheModel.init({
   timestamps: false,
 });
 
-export default MatcheModel;
+export default MatchModel;

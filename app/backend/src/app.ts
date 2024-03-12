@@ -1,5 +1,6 @@
 import * as express from 'express';
 import 'express-async-errors';
+import * as cors from 'cors';
 
 import errorMiddleware from './middlewares/errorMiddleware';
 import routes from './routes';
@@ -14,6 +15,7 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.use(cors());
 
     this.app.use(routes);
     // Não remova esse middleware de erro, mas fique a vontade para customizá-lo

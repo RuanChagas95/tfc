@@ -6,8 +6,10 @@ const patch = joi.object({
 });
 
 const post = joi.object({
-  homeTeam: joi.number().strict().required(),
-  awayTeam: joi.number().strict().required(),
+  homeTeamId: joi.number().integer().min(0).required(),
+  awayTeamId: joi.number().integer().min(0).required(),
+  homeTeamGoals: joi.number().integer().min(0),
+  awayTeamGoals: joi.number().integer().min(0),
 });
 
 export default { patch, post };
