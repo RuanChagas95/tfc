@@ -4,7 +4,7 @@ import CustomError from '../utils/CustomError';
 
 const validateBody = (req: Request, res: Response, next: NextFunction) => {
   const { body } = req;
-  const route = req.originalUrl;
+  const route = req.baseUrl;
   const { method } = req;
 
   const schema = schemas[`${method}${route}`];
