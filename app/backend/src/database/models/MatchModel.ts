@@ -11,11 +11,11 @@ import Matches from '../../Interfaces/Matches';
 class MatcheModel extends Model<InferAttributes<MatcheModel>,
 InferCreationAttributes<MatcheModel>> implements Matches {
   declare id: CreationOptional<number>;
+  declare homeTeamGoals: CreationOptional<number>;
+  declare awayTeamGoals: CreationOptional<number>;
+  declare inProgress: CreationOptional<boolean>;
   public homeTeamId!: number;
   public awayTeamId!: number;
-  public homeTeamGoals!: number;
-  public awayTeamGoals!: number;
-  public inProgress!: boolean;
 }
 
 MatcheModel.init({
@@ -39,16 +39,19 @@ MatcheModel.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'home_team_goals',
+    defaultValue: 0,
   },
   awayTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'away_team_goals',
+    defaultValue: 0,
   },
   inProgress: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     field: 'in_progress',
+    defaultValue: true,
   },
 }, {
   sequelize: db,

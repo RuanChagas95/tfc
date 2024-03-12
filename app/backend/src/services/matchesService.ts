@@ -13,4 +13,18 @@ export const getAllMatches = (inProgress: boolean | null) =>
     },
   );
 
-export default { getAllMatches };
+export const getMatch = (id: number) => MatcheModel.findByPk(id);
+
+export const finishMatch = (id: number) =>
+  MatcheModel.update(
+    { inProgress: false },
+    { where: { id } },
+  );
+export const createMatch = (homeTeamId: number, awayTeamId: number) => {
+  const match = MatcheModel.create({ homeTeamId, awayTeamId });
+  return match;
+};
+
+export const updateMatch = (id: number, homeTeamGoals: number, awayTeamGoals: number) =>
+  MatcheModel.update({
+    homeTeamGoals, awayTeamGoals }, { where: { id } });
