@@ -1,17 +1,19 @@
+import { MatchTeams } from '../types/Matches';
 import MatchModel from '../database/models/MatchModel';
 
-const createOptions = (association: string) => ({
+const createOptions = (association: string, includeId = false) => ({
   association,
-  attributes: { exclude: ['id'] },
+  attributes: includeId ? undefined : { exclude: ['id'] },
 });
 
-export const getAllMatches = (inProgress: boolean | null) =>
+export const getAllMatches = (inProgress: boolean | null, includeID = false)
+: Promise<MatchTeams[]> =>
   MatchModel.findAll(
     {
-      include: [createOptions('homeTeam'), createOptions('awayTeam')],
+      include: [createOptions('homeTeam', includeID), createOptions('awayTeam', includeID)],
       where: inProgress !== null ? { inProgress } : undefined,
     },
-  );
+  ) as unknown as Promise<MatchTeams[]>;
 
 export const getMatch = (id: number) => MatchModel.findByPk(id);
 
