@@ -35,8 +35,8 @@ export const createMatchController = async (req: Request, res: Response) => {
   const match = await createMatch(
     homeTeamId,
     awayTeamId,
-    homeTeamGoals + 1,
-    awayTeamGoals + 1,
+    homeTeamGoals,
+    awayTeamGoals,
   );
   res.status(201).json(match);
 };
