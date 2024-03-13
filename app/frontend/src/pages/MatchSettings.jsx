@@ -12,8 +12,8 @@ const MatchSettings = () => {
   const [teams, setTeams] = useState([]);
   const [homeTeamScoreboard, setHomeTeamScoreboard] = useState('0');
   const [awayTeamScoreboard, setAwayTeamScoreboard] = useState('0');
-  const [homeTeamId, setHomeTeamId] = useState(0);
-  const [awayTeamId, setAwayTeamId] = useState(0);
+  const [homeTeamId, setHomeTeamId] = useState(1);
+  const [awayTeamId, setAwayTeamId] = useState(1);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const location = useLocation();
@@ -61,7 +61,7 @@ const MatchSettings = () => {
       homeTeamGoals: +homeTeamScoreboard,
       awayTeamGoals: +awayTeamScoreboard,
     };
-
+    
     const { data } = await api.post('/matches', body);
     return data;
   };
